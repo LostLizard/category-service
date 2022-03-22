@@ -5,7 +5,7 @@
 
 <h2>Category creation</h2>
 
-<form action="categoryCreate" method="post">
+<form action="create" method="post">
     <input type="text" name="name"
            placeholder="Write category`s name">
     <input type="text" name="description"
