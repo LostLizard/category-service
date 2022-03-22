@@ -23,13 +23,19 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public boolean createCategory(Category category) {
-        return false;
+        Category result = categoryRepository.save(category);
+        if (result!=null){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public Category getCategory() {
-        return null;
+    public Category getCategoryById(Integer id) {
+        return categoryRepository.getById(id);
     }
+
 
 
 }

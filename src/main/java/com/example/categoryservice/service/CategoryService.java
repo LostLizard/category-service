@@ -10,5 +10,6 @@ public interface CategoryService {
 
     public boolean createCategory(Category category);
 
-    public Category getCategory();
+    public Category getCategoryById(Integer id);
+
 }
