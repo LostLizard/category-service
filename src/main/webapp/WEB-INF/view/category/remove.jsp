@@ -3,7 +3,7 @@
 
 <body>
 
-<h2>Category Info</h2>
+<h2>Category removing</h2>
 
 <form action="" method="get">
     <input type="text" name="name"

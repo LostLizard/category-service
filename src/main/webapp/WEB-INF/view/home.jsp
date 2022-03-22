@@ -5,15 +5,15 @@
 
 <h2>Home</h2>
 
-<a href="category-create">Create category</a>
+<a href="category/create">Create category</a>
 <br>
-<a href="category-info">Getting information by category </a>
+<a href="category/info">Getting information by category </a>
 <br>
-<a href="category-list">List of categories</a>
+<a href="category/list">List of categories</a>
 <br>
-<a href="category-update">Category change</a>
+<a href="category/update">Category change</a>
 <br>
-<a href="category-remove">Category remove</a>
+<a href="category/remove">Category remove</a>
 
 </form>
 

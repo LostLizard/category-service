@@ -3,7 +3,7 @@
 
 <body>
 
-<h2>Category Interface</h2>
+<h2>Category creation</h2>
 
 <form action="categoryCreate" method="post">
     <input type="text" name="name"

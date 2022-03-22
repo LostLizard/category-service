@@ -17,39 +17,5 @@ public class MainController {
         return "home";
     }
 
-    @RequestMapping("/category-create")
-    public String showCategoryInterface(){
-
-        return "category-create";
-
-    }
-
-    @RequestMapping("/categoryCreate")
-    public String createCategory(HttpServletRequest request, Model model){
-
-        model.addAttribute("name", request.getParameter("name"));
-        return "test";
-
-    }
-
-    @RequestMapping("/category-info")
-    public  String categoryInfo(){
-        return "category-info";
-    }
-
-    @RequestMapping("/category-list")
-    public  String categoryList(){
-        return "category-list";
-    }
-
-    @RequestMapping("/category-remove")
-    public  String categoryRemove(){
-        return "category-remove";
-    }
-
-    @RequestMapping("/category-update")
-    public  String categoryUpdate(){
-        return "category-update";
-    }
 
 }
