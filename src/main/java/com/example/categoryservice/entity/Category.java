@@ -1,5 +1,7 @@
 package com.example.categoryservice.entity;
 
+import org.springframework.context.annotation.Primary;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "category")
-public class CategoryEntity {
+public class Category {
 
     @Id
     @Column(name = "id")
