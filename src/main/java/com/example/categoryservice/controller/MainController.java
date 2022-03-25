@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 public class MainController {
 
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String home(){
         return "home";
     }

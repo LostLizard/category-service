@@ -5,9 +5,9 @@
 
 <h2>Category Info</h2>
 
-<form action="" method="get">
-    <input type="text" name="name"
-           placeholder="Write category`s name">
+<form action="get" method="get">
+    <input type="number" name="id"
+           placeholder="Write category`s id">
     <input type="submit">
 </form>
 

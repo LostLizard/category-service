@@ -7,56 +7,49 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpStatusCodeException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/category")
 public class CategoryController {
     CategoryServiceImpl categoryService;
 
-    @Autowired
+
     public CategoryController(CategoryServiceImpl categoryService) {
         this.categoryService = categoryService;
     }
 
-    @RequestMapping("/creation")
+    @GetMapping("/creation")
     public String showCategoryInterface(){return "category/creation"; }
 
-    @RequestMapping("/info")
+    @GetMapping("/info")
     public String categoryInfo(){
         return "category/info";
     }
 
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public String categoryList(){
         return "category/list";
     }
 
-    @RequestMapping("/removing")
+    @GetMapping("/removing")
     public String categoryRemove(){
         return "category/removing";
     }
 
-    @RequestMapping("/updating")
-    public String categoryUpdate(){
+    @GetMapping("/updating")
+    public String categoryUpdating(){
         return "category/updating";
     }
 
-    @RequestMapping("/create")
-    public ResponseEntity<String> categoryCreate(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("parent_id") Integer parent_id) {
-        Category category = new Category();
-        category.setName(name);
-        category.setDescription(description);
-        category.setParent_id(parent_id);
-        if(categoryService.createCategory(category)){
-            return new ResponseEntity<>("Category created", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Data entry exception", HttpStatus.BAD_REQUEST);
-        }
-    }
+
+
 
 }
