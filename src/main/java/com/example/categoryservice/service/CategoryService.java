@@ -13,4 +13,5 @@ public interface CategoryService {
 
     public BusinessCategory getCategoryById(Integer id);
 
+    public void updateCategoryById(Integer id, String name, String description, Integer parentId);
 }

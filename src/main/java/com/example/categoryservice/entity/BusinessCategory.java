@@ -18,14 +18,27 @@ public class BusinessCategory {
         this.subCategories = subCategories;
     }
 
-    public BusinessCategory(Category category) {
-        id = category.getId();
-        name = category.getName();
-        description = category.getDescription();
-        parentId = category.getParentCategory().getId();
+    public BusinessCategory() {
     }
 
-    public BusinessCategory() {
+    public static BusinessCategory getDeepBusinessCategory(Category category){
+        BusinessCategory businessCategory = new BusinessCategory();
+        businessCategory.setDescription(category.getDescription());
+        businessCategory.setId(category.getId());
+        businessCategory.setName(category.getName());
+        // ?? category.getSubCategories().stream().map(BusinessCategory::getDeepBusinessCategory);
+
+
+        return businessCategory;
+    }
+
+    public static BusinessCategory getSurfaceBusinessCategory(Category category){
+        BusinessCategory businessCategory = new BusinessCategory();
+        businessCategory.setDescription(category.getDescription());
+        businessCategory.setId(category.getId());
+        businessCategory.setName(category.getName());
+
+        return businessCategory;
     }
 
     public int getId() {
