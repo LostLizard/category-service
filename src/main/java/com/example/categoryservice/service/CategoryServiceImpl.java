@@ -12,7 +12,7 @@ import java.util.Set;
 
 @Service
 public class  CategoryServiceImpl implements CategoryService{
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     @Autowired
     public CategoryServiceImpl(CategoryRepository categoryRepository) {
@@ -44,9 +44,8 @@ public class  CategoryServiceImpl implements CategoryService{
     @Override
     public BusinessCategory getCategoryById(Integer id) {
         Category category = categoryRepository.findById(id).orElse(null);
-        BusinessCategory businessCategory = BusinessCategory.getDeepBusinessCategory(category);
 
-        return businessCategory;
+        return BusinessCategory.getDeepBusinessCategory(category);
     }
 
     @Override
@@ -56,6 +55,7 @@ public class  CategoryServiceImpl implements CategoryService{
         category.setName(name);
         category.setDescription(description);
         category.setParentCategory(categoryRepository.findById(parentId).orElse(null));
+
         categoryRepository.save(category);
     }
 
