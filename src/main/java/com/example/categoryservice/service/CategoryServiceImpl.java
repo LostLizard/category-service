@@ -23,10 +23,7 @@ public class  CategoryServiceImpl implements CategoryService{
     public List<BusinessCategory> getAllCategories() {
         List<BusinessCategory> list = new ArrayList<>();
         for (Category e : categoryRepository.findAll()) {
-            BusinessCategory businessCategory = new BusinessCategory();
-            businessCategory.setId(e.getId());
-            businessCategory.setName(e.getName());
-            businessCategory.setDescription(e.getDescription());
+            BusinessCategory businessCategory = BusinessCategory.getSurfaceBusinessCategory(e);
 
             list.add(businessCategory);
         }
@@ -46,13 +43,9 @@ public class  CategoryServiceImpl implements CategoryService{
 
     @Override
     public BusinessCategory getCategoryById(Integer id) {
-        BusinessCategory businessCategory = new BusinessCategory();
         Category category = categoryRepository.findById(id).orElse(null);
-        businessCategory.setName(category.getName());
-        businessCategory.setId(category.getId());
-        businessCategory.setDescription(category.getDescription());
+        BusinessCategory businessCategory = BusinessCategory.getDeepBusinessCategory(category);
 
-        // надо добавить обход в глубину дочерних элементов
         return businessCategory;
     }
 

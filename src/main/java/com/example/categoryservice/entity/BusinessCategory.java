@@ -1,6 +1,8 @@
 package com.example.categoryservice.entity;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class BusinessCategory {
     private int id;
@@ -26,8 +28,10 @@ public class BusinessCategory {
         businessCategory.setDescription(category.getDescription());
         businessCategory.setId(category.getId());
         businessCategory.setName(category.getName());
-        // ?? category.getSubCategories().stream().map(BusinessCategory::getDeepBusinessCategory);
-
+        List<BusinessCategory> list = category.getSubCategories().stream().map(BusinessCategory::getDeepBusinessCategory).collect(Collectors.toList());
+        for (BusinessCategory e : list) {
+            businessCategory.getSubCategories().add(e);
+        }
 
         return businessCategory;
     }
