@@ -7,6 +7,7 @@ import com.example.categoryservice.dao.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Id;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,6 +43,10 @@ public class  CategoryServiceImpl implements CategoryService {
         categoryRepository.save(category);
     }
 
+    public void createCategory(Category category){
+        createCategory(category.getName(), category.getDescription(), category.getParentCategory().getId());
+    }
+
     @Override
     public Category getCategoryById(Integer id) {
         return categoryRepository.findById(id)
@@ -72,6 +77,10 @@ public class  CategoryServiceImpl implements CategoryService {
     @Override
     public void removeCategory(Category category){
         categoryRepository.deleteById(category.getId());
+    }
+
+    public void removeCategory(Integer id){
+        categoryRepository.deleteById(id);
     }
 
 }

@@ -9,7 +9,7 @@ import java.util.Set;
 //TODO исследовать n+1 trouble query
 @Entity
 public class CategoryEntity {
-
+    // fields
     @Id
     @Column
     @GeneratedValue
@@ -28,6 +28,7 @@ public class CategoryEntity {
     @OneToMany(mappedBy = "parentCategory", cascade = {CascadeType.ALL})
     private Set<CategoryEntity> subCategories = new HashSet<>();
 
+    //constructors
     public CategoryEntity(int id, String name, String description) {
         this.id = id;
         this.name = name;
@@ -37,6 +38,7 @@ public class CategoryEntity {
     public CategoryEntity() {
     }
 
+    //methods
     public CategoryEntity addSubCategory(CategoryEntity category){
         this.subCategories.add(category);
         this.subCategories.add(category);
@@ -44,12 +46,13 @@ public class CategoryEntity {
         return category;
     }
 
-    public void moveCategory(CategoryEntity newParent) {
+    public void replaceCategoryParent(CategoryEntity newParent) {
         this.getParentCategory().getSubCategories().remove(this);
         this.setParentCategory(newParent);
         newParent.getSubCategories().add(this);
     }
 
+    //getters and setters
     public CategoryEntity getParentCategory() { return parentCategory; }
 
     public void setParentCategory(CategoryEntity parentCategory) { this.parentCategory = parentCategory; }

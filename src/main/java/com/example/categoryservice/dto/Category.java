@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 public class Category {
 
+    // fields
     private int id;
     private String name;
     private String description;
@@ -14,6 +15,7 @@ public class Category {
     private Category parentCategory;
     private List<Category> subCategories;
 
+    //constructors
     public Category(int id, String name, String description, Integer parentId) {
         this.id = id;
         this.name = name;
@@ -31,6 +33,10 @@ public class Category {
 
     }
 
+    public Category() {
+    }
+
+    // methods
     public static Category replaceEntityOnSurfaceCategory(CategoryEntity categoryEntity){
         Category category = new Category();
         category.setId(categoryEntity.getId());
@@ -39,9 +45,7 @@ public class Category {
         return category;
     }
 
-    public Category() {
-    }
-
+    // getters and setters
     public int getId() {
         return id;
     }
