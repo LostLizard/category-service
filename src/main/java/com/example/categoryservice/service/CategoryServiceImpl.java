@@ -23,7 +23,7 @@ public class  CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> getAllCategories() {
         return categoryRepository.findAll().stream()
-                .map(Category::new) //TODO передалать на неглублокое копиравание
+                .map(Category::replaceEntityOnSurfaceCategory)
                 .collect(Collectors.toList());
     }
 
@@ -31,8 +31,13 @@ public class  CategoryServiceImpl implements CategoryService {
     public void createCategory(String name, String description, Integer parentId) {
         CategoryEntity category = new CategoryEntity();
         category.setName(name);
-        category.setDescription(description);
-        category.setParentCategory(categoryRepository.findById(parentId).orElse(null)); //TODO смотри на updateCategory
+        category.setDescription(description); // init block
+
+        if (parentId == null) {
+            category.setParentCategory(null);
+        } else {
+            category.setParentCategory(categoryRepository.findById(parentId).orElseThrow(EntityNotFoundException::new));
+        } // exception checking block
 
         categoryRepository.save(category);
     }
@@ -45,23 +50,28 @@ public class  CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void updateCategoryById(Integer id, String name, String description, Integer parentId) {
-        CategoryEntity category = new CategoryEntity(); //TODO найти по id Category, поменять поля и сохранить
+    public void updateCategory(Integer id, String name, String description, Integer parentId) {
+        CategoryEntity category = categoryRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         category.setId(id);
         category.setName(name);
-        category.setDescription(description);
+        category.setDescription(description); // init block
 
         if (parentId == null) {
             category.setParentCategory(null);
         } else {
             category.setParentCategory(categoryRepository.findById(parentId).orElseThrow(EntityNotFoundException::new));
-        }
+        } // exception checking block
 
         categoryRepository.save(category);
     }
 
-    //TODO реализовать remove
+    public void updateCategory(Category category, Integer parentId){
+        updateCategory(category.getId(), category.getName(), category.getDescription(), parentId);
+    }
 
-
+    @Override
+    public void removeCategory(Category category){
+        categoryRepository.deleteById(category.getId());
+    }
 
 }

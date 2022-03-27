@@ -31,6 +31,14 @@ public class Category {
 
     }
 
+    public static Category replaceEntityOnSurfaceCategory(CategoryEntity categoryEntity){
+        Category category = new Category();
+        category.setId(categoryEntity.getId());
+        category.setName(categoryEntity.getName());
+        category.setDescription(categoryEntity.getDescription());
+        return category;
+    }
+
     public Category() {
     }
 

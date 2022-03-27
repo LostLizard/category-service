@@ -1,42 +1,30 @@
 package com.example.categoryservice.controller;
 
+import com.example.categoryservice.dto.Category;
 import com.example.categoryservice.service.CategoryServiceImpl;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 
 //TODO почитать http 1.2, подергать сервис,
-@Controller
+@RestController
 @RequestMapping("/category")
 public class CategoryController {
     CategoryServiceImpl categoryService;
 
     public CategoryController(CategoryServiceImpl categoryService) {
+
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/creation")
-    public String showCategoryInterface(){return "category/creation"; }
-
-    @GetMapping("/info")
-    public String categoryInfo(){
-        return "category/info";
+    @GetMapping("getCategoryById")
+    public ResponseEntity<Category> getCategoryById(@RequestParam("id") Integer id){
+        return new ResponseEntity<Category>(categoryService.getCategoryById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/list")
-    public String categoryList(){
-        return "category/list";
+    @PutMapping("updateCategory")
+    public ResponseEntity<String> updateCategory(@RequestParam("category") Category category, @RequestParam("parentId") Integer parentId){
+        return null;
     }
-
-    @GetMapping("/removing")
-    public String categoryRemove(){
-        return "category/removing";
-    }
-
-    @GetMapping("/updating")
-    public String categoryUpdating(){
-        return "category/updating";
-    }
-
 }

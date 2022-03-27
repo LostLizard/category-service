@@ -12,6 +12,7 @@ public interface CategoryService {
 
     Category getCategoryById(Integer id);
 
-    void updateCategoryById(Integer id, String name, String description, Integer parentId);
+    void updateCategory(Integer id, String name, String description, Integer parentId);
 
+    void removeCategory(Category category);
 }
