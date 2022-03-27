@@ -37,7 +37,8 @@ public class  CategoryServiceImpl implements CategoryService {
         if (parentId == null) {
             category.setParentCategory(null);
         } else {
-            category.setParentCategory(categoryRepository.findById(parentId).orElseThrow(EntityNotFoundException::new));
+            category.setParentCategory(categoryRepository.findById(parentId)
+                    .orElseThrow(EntityNotFoundException::new));
         } // exception checking block
 
         categoryRepository.save(category);
@@ -56,7 +57,8 @@ public class  CategoryServiceImpl implements CategoryService {
 
     @Override
     public void updateCategory(Integer id, String name, String description, Integer parentId) {
-        CategoryEntity category = categoryRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        CategoryEntity category = categoryRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
         category.setId(id);
         category.setName(name);
         category.setDescription(description); // init block
@@ -64,7 +66,8 @@ public class  CategoryServiceImpl implements CategoryService {
         if (parentId == null) {
             category.setParentCategory(null);
         } else {
-            category.setParentCategory(categoryRepository.findById(parentId).orElseThrow(EntityNotFoundException::new));
+            category.setParentCategory(categoryRepository.findById(parentId)
+                    .orElseThrow(EntityNotFoundException::new));
         } // exception checking block
 
         categoryRepository.save(category);

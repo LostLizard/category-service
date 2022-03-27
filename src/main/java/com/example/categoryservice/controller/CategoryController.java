@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-//TODO почитать http 1.2, подергать сервис,
 @RestController
-@RequestMapping("/category")
 public class CategoryController {
     CategoryServiceImpl categoryService;
 
@@ -39,6 +37,14 @@ public class CategoryController {
     @PostMapping("create")
     public ResponseEntity<String> create(@RequestParam Category category){
         categoryService.createCategory(category);
+        return new ResponseEntity<String>("Category created", HttpStatus.OK);
+    }
+
+    @PostMapping("createById")
+    public ResponseEntity<String> createById(@RequestParam String name,
+                                         @RequestParam String description,
+                                         @RequestParam Integer parentId){
+        categoryService.createCategory(name, description, parentId);
         return new ResponseEntity<String>("Category created", HttpStatus.OK);
     }
 
