@@ -1,17 +1,18 @@
 package com.example.categoryservice.service;
 
-import com.example.categoryservice.entity.BusinessCategory;
-import com.example.categoryservice.entity.Category;
-import com.example.categoryservice.repository.CategoryRepository;
+import com.example.categoryservice.dto.Category;
+import com.example.categoryservice.dao.entity.CategoryEntity;
+import com.example.categoryservice.exception.EntityNotFoundException;
+import com.example.categoryservice.dao.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
-public class  CategoryServiceImpl implements CategoryService{
+public class  CategoryServiceImpl implements CategoryService {
+
     private final CategoryRepository categoryRepository;
 
     @Autowired
@@ -20,44 +21,47 @@ public class  CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public List<BusinessCategory> getAllCategories() {
-        List<BusinessCategory> list = new ArrayList<>();
-        for (Category e : categoryRepository.findAll()) {
-            BusinessCategory businessCategory = BusinessCategory.getSurfaceBusinessCategory(e);
-
-            list.add(businessCategory);
-        }
-
-        return list;
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll().stream()
+                .map(Category::new) //TODO передалать на неглублокое копиравание
+                .collect(Collectors.toList());
     }
 
     @Override
     public void createCategory(String name, String description, Integer parentId) {
-        Category category = new Category();
+        CategoryEntity category = new CategoryEntity();
         category.setName(name);
         category.setDescription(description);
-        category.setParentCategory(categoryRepository.findById(parentId).orElse(null));
+        category.setParentCategory(categoryRepository.findById(parentId).orElse(null)); //TODO смотри на updateCategory
 
         categoryRepository.save(category);
     }
 
     @Override
-    public BusinessCategory getCategoryById(Integer id) {
-        Category category = categoryRepository.findById(id).orElse(null);
-
-        return BusinessCategory.getDeepBusinessCategory(category);
+    public Category getCategoryById(Integer id) {
+        return categoryRepository.findById(id)
+                .map(Category::new)
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
     public void updateCategoryById(Integer id, String name, String description, Integer parentId) {
-        Category category = new Category();
+        CategoryEntity category = new CategoryEntity(); //TODO найти по id Category, поменять поля и сохранить
         category.setId(id);
         category.setName(name);
         category.setDescription(description);
-        category.setParentCategory(categoryRepository.findById(parentId).orElse(null));
+
+        if (parentId == null) {
+            category.setParentCategory(null);
+        } else {
+            category.setParentCategory(categoryRepository.findById(parentId).orElseThrow(EntityNotFoundException::new));
+        }
 
         categoryRepository.save(category);
     }
+
+    //TODO реализовать remove
+
 
 
 }

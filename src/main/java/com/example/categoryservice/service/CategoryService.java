@@ -1,17 +1,17 @@
 package com.example.categoryservice.service;
 
-import com.example.categoryservice.entity.BusinessCategory;
-import com.example.categoryservice.entity.Category;
+import com.example.categoryservice.dto.Category;
 
 import java.util.List;
 
 public interface CategoryService {
 
-    public List<BusinessCategory> getAllCategories();
+    List<Category> getAllCategories();
 
-    public void createCategory(String name, String description, Integer parentId);
+    void createCategory(String name, String description, Integer parentId);
 
-    public BusinessCategory getCategoryById(Integer id);
+    Category getCategoryById(Integer id);
 
-    public void updateCategoryById(Integer id, String name, String description, Integer parentId);
+    void updateCategoryById(Integer id, String name, String description, Integer parentId);
+
 }
