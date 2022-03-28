@@ -33,16 +33,13 @@ public class Category {
 
     }
 
-    public Category() {
+    public Category(int id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
     }
 
-    // methods
-    public static Category replaceEntityOnSurfaceCategory(CategoryEntity categoryEntity){
-        Category category = new Category();
-        category.setId(categoryEntity.getId());
-        category.setName(categoryEntity.getName());
-        category.setDescription(categoryEntity.getDescription());
-        return category;
+    public Category() {
     }
 
     // getters and setters

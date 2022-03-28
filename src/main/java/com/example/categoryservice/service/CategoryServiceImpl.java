@@ -24,28 +24,26 @@ public class  CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> getAllCategories() {
         return categoryRepository.findAll().stream()
-                .map(Category::replaceEntityOnSurfaceCategory)
+                .map((el) -> {
+                    return new Category(el.getId(), el.getName(), el.getDescription());
+                })
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void createCategory(String name, String description, Integer parentId) {
-        CategoryEntity category = new CategoryEntity();
-        category.setName(name);
-        category.setDescription(description); // init block
+    public void createCategory(Category category) {
+        CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setName(category.getName());
+        categoryEntity.setDescription(category.getDescription()); // init block
 
-        if (parentId == null) {
-            category.setParentCategory(null);
+        if (category.getParentCategory() == null) {
+            categoryEntity.setParentCategory(null);
         } else {
-            category.setParentCategory(categoryRepository.findById(parentId)
+            categoryEntity.setParentCategory(categoryRepository.findById(category.getParentCategory().getId())
                     .orElseThrow(EntityNotFoundException::new));
         } // exception checking block
 
-        categoryRepository.save(category);
-    }
-
-    public void createCategory(Category category){
-        createCategory(category.getName(), category.getDescription(), category.getParentCategory().getId());
+        categoryRepository.save(categoryEntity);
     }
 
     @Override
@@ -56,32 +54,24 @@ public class  CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void updateCategory(Integer id, String name, String description, Integer parentId) {
-        CategoryEntity category = categoryRepository.findById(id)
+    public void updateCategory(Category category, Integer parentId) {
+        CategoryEntity categoryEntity = categoryRepository.findById(category.getId())
                 .orElseThrow(EntityNotFoundException::new);
-        category.setId(id);
-        category.setName(name);
-        category.setDescription(description); // init block
+        categoryEntity.setId(category.getId());
+        categoryEntity.setName(category.getName());
+        categoryEntity.setDescription(category.getDescription()); // init block
 
         if (parentId == null) {
-            category.setParentCategory(null);
+            categoryEntity.setParentCategory(null);
         } else {
-            category.setParentCategory(categoryRepository.findById(parentId)
+            categoryEntity.setParentCategory(categoryRepository.findById(parentId)
                     .orElseThrow(EntityNotFoundException::new));
         } // exception checking block
 
-        categoryRepository.save(category);
-    }
-
-    public void updateCategory(Category category, Integer parentId){
-        updateCategory(category.getId(), category.getName(), category.getDescription(), parentId);
+        categoryRepository.save(categoryEntity);
     }
 
     @Override
-    public void removeCategory(Category category){
-        categoryRepository.deleteById(category.getId());
-    }
-
     public void removeCategory(Integer id){
         categoryRepository.deleteById(id);
     }

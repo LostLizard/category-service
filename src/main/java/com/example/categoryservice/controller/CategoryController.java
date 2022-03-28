@@ -4,12 +4,13 @@ import com.example.categoryservice.dto.Category;
 import com.example.categoryservice.service.CategoryServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
-@RestController
+@Controller
 public class CategoryController {
     CategoryServiceImpl categoryService;
 
@@ -41,10 +42,9 @@ public class CategoryController {
     }
 
     @PostMapping("createById")
-    public ResponseEntity<String> createById(@RequestParam String name,
-                                         @RequestParam String description,
-                                         @RequestParam Integer parentId){
-        categoryService.createCategory(name, description, parentId);
+    public ResponseEntity<String> createById(@RequestParam Category category){
+        System.out.println("вход");
+        categoryService.createCategory(category);
         return new ResponseEntity<String>("Category created", HttpStatus.OK);
     }
 
