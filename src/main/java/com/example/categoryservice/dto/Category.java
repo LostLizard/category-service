@@ -28,9 +28,12 @@ public class Category {
         this.id = category.getId();
         this.name = category.getName();
         this.description = category.getDescription();
-        this.parentId = category.getParentCategory().getId();
-        this.subCategories = category.getSubCategories().stream().map(Category::new).collect(Collectors.toList());
-
+        if (category.getParentCategory()!=null) {
+            this.parentId = category.getParentCategory().getId();
+        }
+        if (category.getSubCategories()!=null) {
+            this.subCategories = category.getSubCategories().stream().map(Category::new).collect(Collectors.toList());
+        }
     }
 
     public Category(int id, String name, String description) {

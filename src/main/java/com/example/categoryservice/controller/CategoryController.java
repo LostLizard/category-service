@@ -19,14 +19,14 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/get/{id}")
-    public ResponseEntity<Category> get(@PathVariable Integer id){
-        return ResponseEntity.of(Optional.of(categoryService.getCategoryById(id)));
-    }
-
     @GetMapping("/list")
     public ResponseEntity<List<Category>> getAll(){
         return ResponseEntity.of(Optional.of(categoryService.getAllCategories()));
+    }
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Category> get(@PathVariable Integer id){
+        return ResponseEntity.of(Optional.of(categoryService.getCategoryById(id)));
     }
 
     @PostMapping("/update")
