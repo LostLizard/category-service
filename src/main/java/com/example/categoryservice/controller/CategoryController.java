@@ -30,8 +30,8 @@ public class CategoryController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<String> update(@RequestParam Category category, @RequestParam Integer parentId){
-        categoryService.updateCategory(category, parentId);
+    public ResponseEntity<String> update(@RequestParam Category category){
+        categoryService.updateCategory(category);
         return ResponseEntity.of(Optional.of("Category updated"));
     }
 

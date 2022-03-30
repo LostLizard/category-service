@@ -12,7 +12,7 @@ public interface CategoryService {
 
     Category getCategoryById(Integer id);
 
-    void updateCategory(Category category, Integer parentId);
+    void updateCategory(Category category);
 
     void removeCategory(Integer id);
 }
