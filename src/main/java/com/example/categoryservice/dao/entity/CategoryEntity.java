@@ -22,7 +22,7 @@ public class CategoryEntity {
     @Column
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private CategoryEntity parentCategory;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "parentCategory", cascade = {CascadeType.ALL})
