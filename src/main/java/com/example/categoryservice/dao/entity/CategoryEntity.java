@@ -1,16 +1,15 @@
-package com.example.categoryservice.entity;
+package com.example.categoryservice.dao.entity;
 
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.NaturalId;
-import org.springframework.context.annotation.Primary;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+//TODO исследовать n+1 trouble query
 @Entity
-public class Category {
-
+public class CategoryEntity {
+    // fields
     @Id
     @Column
     @GeneratedValue
@@ -23,41 +22,44 @@ public class Category {
     @Column
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private Category parentCategory;
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private CategoryEntity parentCategory;
 
-    @OneToMany(mappedBy = "parentCategory", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private Set<Category> subCategories = new HashSet<>();
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "parentCategory", cascade = {CascadeType.ALL})
+    private Set<CategoryEntity> subCategories = new HashSet<>();
 
-    public Category(int id, String name, String description, int parent_id) {
+    //constructors
+    public CategoryEntity(int id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
     }
 
-    public Category() {
+    public CategoryEntity() {
     }
 
-    public Category addSubCategory(Category category){
+    //methods
+    public CategoryEntity addSubCategory(CategoryEntity category){
         this.subCategories.add(category);
         this.subCategories.add(category);
         category.setParentCategory(this);
         return category;
     }
 
-    public void moveCategory(Category newParent) {
+    public void replaceCategoryParent(CategoryEntity newParent) {
         this.getParentCategory().getSubCategories().remove(this);
         this.setParentCategory(newParent);
         newParent.getSubCategories().add(this);
     }
 
-    public Category getParentCategory() { return parentCategory; }
+    //getters and setters
+    public CategoryEntity getParentCategory() { return parentCategory; }
 
-    public void setParentCategory(Category parentCategory) { this.parentCategory = parentCategory; }
+    public void setParentCategory(CategoryEntity parentCategory) { this.parentCategory = parentCategory; }
 
-    public Set<Category> getSubCategories() { return subCategories; }
+    public Set<CategoryEntity> getSubCategories() { return subCategories; }
 
-    public void setSubCategories(Set<Category> subCategories) { this.subCategories = subCategories; }
+    public void setSubCategories(Set<CategoryEntity> subCategories) { this.subCategories = subCategories; }
 
     public int getId() {
         return id;

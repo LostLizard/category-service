@@ -1,55 +1,50 @@
 package com.example.categoryservice.controller;
 
-import com.example.categoryservice.entity.Category;
+import com.example.categoryservice.dto.Category;
 import com.example.categoryservice.service.CategoryServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Optional;
 
-@Controller
+
+@RestController
 @RequestMapping("/category")
 public class CategoryController {
     CategoryServiceImpl categoryService;
 
-
     public CategoryController(CategoryServiceImpl categoryService) {
+
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/creation")
-    public String showCategoryInterface(){return "category/creation"; }
-
-    @GetMapping("/info")
-    public String categoryInfo(){
-        return "category/info";
-    }
-
     @GetMapping("/list")
-    public String categoryList(){
-        return "category/list";
+    public ResponseEntity<List<Category>> getAll(){
+        return ResponseEntity.of(Optional.of(categoryService.getAllCategories()));
     }
 
-    @GetMapping("/removing")
-    public String categoryRemove(){
-        return "category/removing";
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Category> get(@PathVariable Integer id){
+        return ResponseEntity.of(Optional.of(categoryService.getCategoryById(id)));
     }
 
-    @GetMapping("/updating")
-    public String categoryUpdating(){
-        return "category/updating";
+    @PostMapping("/update")
+    public ResponseEntity<String> update(@RequestParam Category category){
+        categoryService.updateCategory(category);
+        return ResponseEntity.of(Optional.of("Category updated"));
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<String> create(@RequestParam Category category){
+        categoryService.createCategory(category);
+        return ResponseEntity.of(Optional.of("Category created"));
+    }
 
-
+    @DeleteMapping("/remove/{id}")
+    public ResponseEntity<String> remove(@PathVariable Integer id){
+        categoryService.removeCategory(id);
+        return ResponseEntity.of(Optional.of("Category removed"));
+    }
 
 }
