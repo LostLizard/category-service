@@ -1,0 +1,19 @@
+1) получение списка категорий http://localhost:8080/category/list
+2) получение категории http://localhost:8080/category/get/{id}
+3) обновление категории http://localhost:8080/category/update
+{
+"id": 0
+"name": null
+"description": null
+"parentCategory": null
+"subCategories": []
+}
+4) создание категории http://localhost:8080/category/create
+{
+"id": 0
+"name": null
+"description": null
+"parentCategory": null
+"subCategories": []
+}
+5) удаление категории http://localhost:8080/category/remove/{id}

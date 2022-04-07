@@ -46,12 +46,6 @@ public class CategoryEntity {
         return category;
     }
 
-    public void replaceCategoryParent(CategoryEntity newParent) {
-        this.getParentCategory().getSubCategories().remove(this);
-        this.setParentCategory(newParent);
-        newParent.getSubCategories().add(this);
-    }
-
     //getters and setters
     public CategoryEntity getParentCategory() { return parentCategory; }
 
