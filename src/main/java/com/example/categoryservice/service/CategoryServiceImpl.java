@@ -1,13 +1,12 @@
 package com.example.categoryservice.service;
 
-import com.example.categoryservice.dto.Category;
 import com.example.categoryservice.dao.entity.CategoryEntity;
-import com.example.categoryservice.exception.EntityNotFoundException;
 import com.example.categoryservice.dao.repository.CategoryRepository;
+import com.example.categoryservice.dto.Category;
+import com.example.categoryservice.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Id;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,9 +23,7 @@ public class  CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> getAllCategories() {
         return categoryRepository.findAll().stream()
-                .map((el) -> {
-                    return new Category(el.getId(), el.getName(), el.getDescription());
-                })
+                .map((el) -> {return new Category(el.getId(), el.getName(), el.getDescription());})
                 .collect(Collectors.toList());
     }
 
