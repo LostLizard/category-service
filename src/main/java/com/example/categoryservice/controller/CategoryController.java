@@ -29,14 +29,14 @@ public class CategoryController {
         return ResponseEntity.of(Optional.of(categoryService.getCategoryById(id)));
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<String> update(@RequestParam Category category){
+    @PutMapping("/update")
+    public ResponseEntity<String> update(@RequestBody Category category){
         categoryService.updateCategory(category);
         return ResponseEntity.of(Optional.of("Category updated"));
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> create(@RequestParam Category category){
+    public ResponseEntity<String> create(@RequestBody Category category){
         categoryService.createCategory(category);
         return ResponseEntity.of(Optional.of("Category created"));
     }
