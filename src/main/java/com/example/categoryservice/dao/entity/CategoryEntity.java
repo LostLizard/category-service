@@ -16,10 +16,10 @@ public class CategoryEntity {
     private int id;
 
     @NaturalId
-    @Column
+    @Column(length = 20)
     private String name;
 
-    @Column
+    @Column(length = 50)
     private String description;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
