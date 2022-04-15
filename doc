@@ -2,7 +2,7 @@
 2) получение категории http://localhost:8080/category/get/{id}
 3) обновление категории http://localhost:8080/category/update
 {
-"id": 0
+"id":
 "name": null
 "description": null
 "parentCategory": null
