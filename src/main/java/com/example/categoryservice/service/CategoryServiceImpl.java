@@ -1,8 +1,8 @@
 package com.example.categoryservice.service;
 
-import com.example.categoryservice.dao.entity.CategoryEntity;
-import com.example.categoryservice.dao.repository.CategoryRepository;
-import com.example.categoryservice.dto.Category;
+import com.example.categoryservice.service.dto.dao.entity.CategoryEntity;
+import com.example.categoryservice.service.dto.dao.repository.CategoryRepository;
+import com.example.categoryservice.service.dto.Category;
 import com.example.categoryservice.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,10 +33,10 @@ public class  CategoryServiceImpl implements CategoryService {
         categoryEntity.setName(category.getName());
         categoryEntity.setDescription(category.getDescription()); // init block
 
-        if (category.getParentCategory() == null) {
+        if (category.getParentId() == null) {
             categoryEntity.setParentCategory(null);
         } else {
-            categoryEntity.setParentCategory(categoryRepository.findById(category.getParentCategory().getId())
+            categoryEntity.setParentCategory(categoryRepository.findById(category.getParentId())
                     .orElseThrow(EntityNotFoundException::new));
         } // exception checking block
 
@@ -59,10 +59,10 @@ public class  CategoryServiceImpl implements CategoryService {
         categoryEntity.setDescription(category.getDescription());
         // init block
 
-        if (category.getParentCategory().getId() == 0) {
+        if (category.getParentId() == null) {
             categoryEntity.setParentCategory(null);
         } else {
-            categoryEntity.setParentCategory(categoryRepository.findById(category.getParentCategory().getId())
+            categoryEntity.setParentCategory(categoryRepository.findById(category.getParentId())
                     .orElseThrow(EntityNotFoundException::new));
         } // exception checking block
 

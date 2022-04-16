@@ -1,4 +1,4 @@
-package com.example.categoryservice.dao.entity;
+package com.example.categoryservice.service.dto.dao.entity;
 
 import org.hibernate.annotations.NaturalId;
 

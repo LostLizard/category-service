@@ -1,6 +1,6 @@
-package com.example.categoryservice.dto;
+package com.example.categoryservice.service.dto;
 
-import com.example.categoryservice.dao.entity.CategoryEntity;
+import com.example.categoryservice.service.dto.dao.entity.CategoryEntity;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,8 +11,7 @@ public class Category {
     private int id;
     private String name;
     private String description;
-    private int parentId;
-    private Category parentCategory;
+    private Integer parentId;
     private List<Category> subCategories;
 
     //constructors
@@ -22,6 +21,14 @@ public class Category {
         this.description = description;
         this.parentId = parentId;
 
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 
     public Category(CategoryEntity category){
@@ -68,14 +75,6 @@ public class Category {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Category getParentCategory() {
-        return parentCategory;
-    }
-
-    public void setParentCategory(Category parentCategory) {
-        this.parentCategory = parentCategory;
     }
 
     public List<Category> getSubCategories() {

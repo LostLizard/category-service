@@ -1,6 +1,6 @@
 package com.example.categoryservice.service;
 
-import com.example.categoryservice.dto.Category;
+import com.example.categoryservice.service.dto.Category;
 
 import java.util.List;
 

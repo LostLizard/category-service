@@ -1,6 +1,6 @@
-package com.example.categoryservice.dao.repository;
+package com.example.categoryservice.service.dto.dao.repository;
 
-import com.example.categoryservice.dao.entity.CategoryEntity;
+import com.example.categoryservice.service.dto.dao.entity.CategoryEntity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.example.categoryservice.controller;
 
-import com.example.categoryservice.dto.Category;
+import com.example.categoryservice.service.dto.Category;
 import com.example.categoryservice.service.CategoryServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
